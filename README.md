@@ -11,7 +11,8 @@ A gpt wrapper which prevents you from having to look up command line syntax.
 1. install [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 2. clone the repo and cd into it: `git clone git@github.com:trstruth/sgpt.git && cd sgpt`
 3. [install](https://doc.rust-lang.org/cargo/commands/cargo-install.html) the binary: `cargo install --path .` (ensure the installation root is in your PATH)
-4. run sgpt:
+4. create a file at `$HOME/.sgpt/token` and populate it with your openai api key
+5. run sgpt:
     ```
     $ sgpt -- what kubectl command do I run to follow logs from a pod
     kubectl logs -f [pod-name]
