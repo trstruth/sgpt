@@ -1,8 +1,7 @@
-use std::{fs, env, path::Path};
+use std::{env, fs, path::Path};
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use clap::{arg, command, value_parser};
-use tokio;
 
 use sgpt::openai::call_gpt;
 
@@ -42,7 +41,10 @@ async fn main() -> Result<()> {
 fn get_token() -> Result<String> {
     let home_dir = env::var("HOME")?;
     let token_path = Path::new(&home_dir).join(TOKEN_PATH);
-    let token = fs::read_to_string(&token_path)?;
-    let token = token.strip_suffix("\n").unwrap_or(&token);
+    let token = fs::read_to_string(&token_path).context(format!(
+        "Failed to read token from {}",
+        token_path.to_string_lossy()
+    ))?;
+    let token = token.strip_suffix('\n').unwrap_or(&token);
     Ok(token.to_owned())
 }
